@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мое Flask-приложение с анимацией</title>
+    <style>
+        /* Стили для всего тела страницы */
+        body {
+            display: flex;
+            flex-direction: column;        /* Располагаем элементы по вертикали */
+            align-items: center;           /* Центрируем элементы по горизонтали */
+            justify-content: center;       /* Центрируем элементы по вертикали */
+            background: linear-gradient(45deg,
+                                        red,
+                                        orange,
+                                        yellow,
+                                        green,
+                                        blue,
+                                        indigo,
+                                        violet);    /* Радужный градиент */
+            background-size: 400% 400%;    /* Увеличиваем размер фона для анимации (опционально) */
+            animation: gradientAnimation 15s ease infinite; /* Анимируем фон (опционально) */
+            min-height: 100vh;             /* Минимальная высота страницы — 100% высоты окна */
+            margin: 0;                      /* Убираем внешние отступы */
+            padding: 20px;                  /* Добавляем отступы со всех сторон */
+            box-sizing: border-box;        /* Включаем боковую модель коробки */
+            position: relative;            /* Для управления слоями */
+        }
+
+        /* Анимация радужного фона (опционально) */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Стили для анимированного текста "Петушара" */
+        h1 {
+            font-size: 3em;                /* Размер шрифта */
+            color: #FFFFFF;                /* Белый цвет текста для контраста */
+            animation: textAnimation 5s infinite; /* Применяем анимацию */
+            margin-bottom: 20px;           /* Отступ снизу для разделения текста и изображения */
+            text-align: center;            /* Центрируем текст */
+            position: relative;            /* Для применения z-index */
+            z-index: 2;                    /* Высокий z-index для отображения над изображением */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тень для лучшей читаемости */
+        }
+
+        /* Определение анимации для текста */
+        @keyframes textAnimation {
+            0% {
+                transform: scale(1);        /* Начальный размер */
+                color: #FFFFFF;              /* Начальный цвет */
+            }
+            50% {
+                transform: scale(1.2);      /* Увеличение размера до 120% */
+                color: #FFD700;              /* Изменение цвета на золотой */
+            }
+            100% {
+                transform: scale(1);        /* Возврат к начальному размеру */
+                color: #FFFFFF;              /* Возврат к начальному цвету */
+            }
+        }
+
+        /* Стили для контейнера изображения */
+        .image-container {
+            display: flex;
+            justify-content: center;       /* Центрируем изображение по горизонтали */
+            align-items: center;           /* Центрируем изображение по вертикали */
+            flex-grow: 1;                  /* Занимаем оставшееся пространство */
+            width: 100%;                   /* Ширина контейнера — 100% */
+            position: relative;            /* Для управления слоями */
+            z-index: 1;                    /* Низкий z-index для размещения под текстом */
+        }
+
+        /* Стили для анимированного изображения */
+        img {
+            max-width: 100%;                /* Максимальная ширина — 100% контейнера */
+            height: auto;                   /* Автоматическая высота для сохранения пропорций */
+            width: 300px;                   /* Фиксированная ширина изображения */
+            animation: imageAnimation 10s linear infinite; /* Применяем анимацию вращения */
+            border-radius: 10px;            /* Скругление углов изображения (опционально) */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень для объема (опционально) */
+        }
+
+        /* Определение анимации для изображения */
+        @keyframes imageAnimation {
+            from {
+                transform: rotate(0deg);     /* Начальное вращение */
+            }
+            to {
+                transform: rotate(360deg);   /* Полный круг вращения */
+            }
+        }
+
+        /* Медиа-запросы для адаптивности */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;            /* Уменьшаем размер текста на маленьких экранах */
+            }
+
+            img {
+                width: 200px;               /* Уменьшаем размер изображения на маленьких экранах */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированный текст "Петушара" -->
+    <h1>Петушара</h1>
+
+    <!-- Контейнер для анимированного изображения с петухом -->
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='images/SaraevPetyshara.gif') }}" alt="Анимированный петух">
+    </div>
+</body>
+</html>
